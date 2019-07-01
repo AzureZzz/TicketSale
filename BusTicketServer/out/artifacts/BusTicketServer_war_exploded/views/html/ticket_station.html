@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>车站查询</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/ticket_station.css">
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet" href="css/cityselect.css">
+    <link rel="stylesheet" href="css/bootstrap-datepicker3.css">
+    <script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript " src="js/cityselect.js"></script>
+    <script type="text/javascript " src="js/bootstrap-datepicker.min.js"></script>
+</head>
+<body style="background-color: #f3f3f3">
+<div>
+    <div class="row">
+        <nav class="navbar navbar-default" style="margin-bottom: 0">
+            <div class=" col-md-offset-2 col=md-8">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">购票系统</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li ><a href="#">首页 <span class="sr-only">(current)</span></a></li>
+                        <li ><a href="#">车票预订</a></li>
+                        <li class="dropdown active">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">客运服务 <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">票价查询</a></li>
+                                <li><a href="#">车次查询</a></li>
+                                <li class="active"><a href="#">车站查询</a></li>
+                                <li><a href="#">正晚点查询</a></li>
+                                <li><a href="#">代售点查询</a></li>
+
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right" style="padding-right: 260px">
+                        <li><a href="#">登录</a></li>
+                        <li><a href="#">注册</a></li>
+
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </nav>
+    </div>
+
+    <div class="line"></div>
+    <!--内容-->
+
+    <div class="search-box">
+        <div class="search">
+            <div class=" col-md-offset-2 col-md-8" style="padding: 13px 15px;">
+                <form class="form-inline">
+                    <div class="form-group">
+                        <label for="exampleInputEmail2">日期&nbsp;&nbsp;&nbsp;</label>
+                        <input  data-provide="datepicker" class="form-control" placeholder="出发时间">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                        <label for="exampleInputEmail2">车站&nbsp;&nbsp;&nbsp;</label>
+                        <input type="text" class=" form-control" id="citySelect" placeholder="请输入城市名">
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+
+                    </div>
+                    <button type="submit" class="btn btn-primary ">查询</button>
+                </form>
+            </div>
+        </div>
+
+
+    </div>
+    <div class="traffic_result col-md-offset-2 col-md-8 claerfix" style="padding: 20px 0 5px 0">
+        K15次列车（快速 有空调），始发站：济南；终到站：重庆北；全程共有25个停靠站
+    </div>
+    <div class="traffic_information col-md-offset-2 col-md-8 claerfix" style="padding: 0">
+        <div class="traffic_inf_title">
+            <dl>
+                <dd class="left traffic_inf_left">上海</dd>
+                <dt class="left traffic_inf_jia">
+                    <em class="glyphicon glyphicon-arrow-right"></em>
+                </dt>
+                <dd class="left">北京</dd>
+                <dt id="go_listNum" class="left traffic_inf_xial">(共2条车次信息)</dt>
+            </dl>
+
+        </div>
+        <table class="table table-striped">
+
+            <thead class="traffic_jie_title  ">
+            <th width="10%" > 出发时间</th>
+            <th width="15%">出发站点/到达站点</th>
+            <th width="10%">座型</th>
+            <th width="10%">票种</th>
+            <th width="10%">票价</th>
+            <th width="10%"></th>
+            </thead>
+            <tbody>
+            <tr>
+                <td>12:10</td>
+                <td>        <p>
+                    <em class="base_shi">
+                        始
+                    </em>
+                    <span>&nbsp;&nbsp;桂林站</span>
+                </p>
+                    <p>
+                        <em class="base_dao">
+                            到
+                        </em>
+                        <span>&nbsp;&nbsp;北京</span>
+                    </p></td>
+                <td>一等座</td>
+                <td>成人票</td>
+                <td><span class="glyphicong glyphicon-yen"></span>330.0</td>
+                <td><button class="btn btn-primary">购票</button></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<script type="text/javascript">
+    var test=new Vcity.CitySelector({input:'citySelect'});
+
+</script>
+</body>
+</html>

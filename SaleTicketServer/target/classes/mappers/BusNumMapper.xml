@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.BusNumMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.BusNum">
+    <id column="b_id" jdbcType="BIGINT" property="bId" />
+    <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+    <result column="des_station" jdbcType="VARCHAR" property="desStation" />
+    <result column="start_city" jdbcType="VARCHAR" property="startCity" />
+    <result column="arrive_city" jdbcType="VARCHAR" property="arriveCity" />
+    <result column="bus_type" jdbcType="VARCHAR" property="busType" />
+    <result column="go_off" jdbcType="TIMESTAMP" property="goOff" />
+    <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime" />
+    <result column="piece" jdbcType="REAL" property="piece" />
+    <result column="num_no" jdbcType="VARCHAR" property="numNo"/>
+    <collection property="busSeats" ofType="com.guet.entity.BusSeat">
+      <id column="bs_id" jdbcType="BIGINT" property="bsId" />
+      <result column="seat_no" jdbcType="SMALLINT" property="seatNo" />
+      <result column="seat_state" jdbcType="BIT" property="seatState" />
+    </collection>
+  </resultMap>
+  <sql id="Base_Column_List">
+    b_id, start_station, des_station, start_city, arrive_city, bus_type, go_off, arrive_time, 
+    piece,
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    *
+    from bus_num bn join bus_seat bs on bs.b_id = bn.b_id
+    where b_id = #{bId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_num
+    where b_id = #{bId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.BusNum">
+    <selectKey keyProperty="bId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_num (start_station, des_station, start_city,
+    arrive_city, bus_type, go_off,
+    arrive_time, piece,num_no)
+    values (#{startStation,jdbcType=VARCHAR}, #{desStation,jdbcType=VARCHAR}, #{startCity,jdbcType=VARCHAR},
+    #{arriveCity,jdbcType=VARCHAR}, #{busType,jdbcType=VARCHAR}, #{goOff,jdbcType=TIMESTAMP},
+    #{arriveTime,jdbcType=TIMESTAMP}, #{piece,jdbcType=REAL}, #{numNo,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.BusNum">
+    <selectKey keyProperty="bId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_num
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="startStation != null">
+        start_station,
+      </if>
+      <if test="desStation != null">
+        des_station,
+      </if>
+      <if test="startCity != null">
+        start_city,
+      </if>
+      <if test="arriveCity != null">
+        arrive_city,
+      </if>
+      <if test="busType != null">
+        bus_type,
+      </if>
+      <if test="goOff != null">
+        go_off,
+      </if>
+      <if test="arriveTime != null">
+        arrive_time,
+      </if>
+      <if test="piece != null">
+        piece,
+      </if>
+      <if test="numNo != null">
+        num_no,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="startStation != null">
+        #{startStation,jdbcType=VARCHAR},
+      </if>
+      <if test="desStation != null">
+        #{desStation,jdbcType=VARCHAR},
+      </if>
+      <if test="startCity != null">
+        #{startCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCity != null">
+        #{arriveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="busType != null">
+        #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="goOff != null">
+        #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arriveTime != null">
+        #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="piece != null">
+        #{piece,jdbcType=REAL},
+      </if>
+      <if test="numNo!= null">
+        #{numNo,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.BusNum">
+    update bus_num
+    <set>
+      <if test="startStation != null">
+        start_station = #{startStation,jdbcType=VARCHAR},
+      </if>
+      <if test="desStation != null">
+        des_station = #{desStation,jdbcType=VARCHAR},
+      </if>
+      <if test="startCity != null">
+        start_city = #{startCity,jdbcType=VARCHAR},
+      </if>
+      <if test="arriveCity != null">
+        arrive_city = #{arriveCity,jdbcType=VARCHAR},
+      </if>
+      <if test="busType != null">
+        bus_type = #{busType,jdbcType=VARCHAR},
+      </if>
+      <if test="goOff != null">
+        go_off = #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arriveTime != null">
+        arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="piece != null">
+        piece = #{piece,jdbcType=REAL},
+      </if>
+      <if test="numNo != null">
+        num_no,
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.BusNum">
+    update bus_num
+    set start_station = #{startStation,jdbcType=VARCHAR},
+      des_station = #{desStation,jdbcType=VARCHAR},
+      start_city = #{startCity,jdbcType=VARCHAR},
+      arrive_city = #{arriveCity,jdbcType=VARCHAR},
+      bus_type = #{busType,jdbcType=VARCHAR},
+      go_off = #{goOff,jdbcType=TIMESTAMP},
+      arrive_time = #{arriveTime,jdbcType=TIMESTAMP},
+      piece = #{piece,jdbcType=REAL}
+      num_no = #{numNo,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

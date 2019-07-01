@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.AdminMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.Admin">
+    <id column="a_id" jdbcType="BIGINT" property="aId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <association property="log" column="l_id" javaType="com.guet.entity.Log">
+      <id column="l_id" jdbcType="BIGINT" property="lId" />
+      <result column="ip" jdbcType="VARCHAR" property="ip" />
+      <result column="last_login" jdbcType="TIMESTAMP" property="lastLogin" />
+      <result column="last_site" jdbcType="VARCHAR" property="lastSite" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    a_id, username, password, l_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    *
+    from admin a join log l on a.l_id = l.l_id
+    where a_id = #{aId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByUsernameAndPass" resultMap="BaseResultMap">
+    select
+    *
+    from admin
+    where username = #{username,jdbcType=VARCHAR}
+    and password = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from admin
+    where a_id = #{aId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.Admin">
+    <selectKey keyProperty="aId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin (username, password, l_id
+      )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{log.lId,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.Admin">
+    <selectKey keyProperty="aId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="log != null">
+        l_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="log != null">
+        #{log.lId,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.Admin">
+    update admin
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="log != null">
+        l_id = #{log.lId,jdbcType=BIGINT},
+      </if>
+    </set>
+    where a_id = #{aId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.Admin">
+    update admin
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      l_id = #{log.lId,jdbcType=BIGINT}
+    where a_id = #{aId,jdbcType=BIGINT}
+  </update>
+</mapper>

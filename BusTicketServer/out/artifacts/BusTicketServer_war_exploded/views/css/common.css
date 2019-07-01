@@ -1,0 +1,137 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 微软雅黑;
+
+}
+ol,ul,li{
+    list-style: none;
+}
+/*导航     */
+
+
+
+/*内容*/
+
+.line{
+    width: 100%;
+    height: 2px;
+    background-color:#64aee5;
+    clear: left;
+}
+
+.search-box{
+    margin:0 auto ;
+    margin-top: 20px;
+
+
+}
+
+.guide{
+    background-color:#fff;
+    width: 245px;
+    float: left;
+    padding: 10px;
+}
+
+
+.left{
+    float: left;
+    display: inline;
+}
+
+.claerfix{
+    clear: left;
+}
+
+.picture{
+	float: left;
+	margin: 10px 22px;
+	border: 2px solid #BBBBBB;
+	
+	
+}
+.picture p,h4{
+	padding-left: 5px;
+}
+.note {
+    position: relative;
+    padding-top: 10px;
+}
+.note .post {
+    margin: 0 auto;
+    padding-top: 20px;
+    padding-bottom: 40px;
+    width: 720px;
+}
+
+.note .post .article .title {
+    word-break: break-word!important;
+    word-break: break-all;
+    margin: 20px 0 0;
+    font-family: -apple-system,SF UI Display,Arial,PingFang SC,Hiragino Sans GB,Microsoft YaHei,WenQuanYi Micro Hei,sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    line-height: 1.3;
+}
+.note .post .article .author {
+    margin: 30px 0 40px;
+}
+.note .post .article .author .avatar {
+    width: 48px;
+    height: 48px;
+    vertical-align: middle;
+    display: inline-block;
+}
+.note .post .article .author .info {
+    vertical-align: middle;
+    display: inline-block;
+    margin-left: 8px;
+}
+
+.note .post .article .show-content {
+    color: #2f2f2f;
+    word-break: break-word!important;
+    word-break: break-all;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.7;
+}
+.avatar img {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+}
+.note .post .article .author .name {
+    margin-right: 3px;
+    font-size: 16px;
+    vertical-align: middle;
+}
+.note .post .article .author .info img.badge-icon {
+    margin-right: 5px;
+    width: 20px;
+    height: 20px;
+    border-radius: 0;
+    border: 0;
+}
+.note .post .article .author .meta {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #969696;
+}
+.note .post .article .author .meta span {
+    padding-right: 5px;
+}
+.art-content img {
+    display: block;
+    margin: 18px 0;
+    max-width: 100%;
+    position: inherit !important;
+    width: auto !important;
+    height: auto !important;
+    color: transparent;
+    font-size: 0;
+    vertical-align: middle;
+    -ms-interpolation-mode: bicubic;
+}

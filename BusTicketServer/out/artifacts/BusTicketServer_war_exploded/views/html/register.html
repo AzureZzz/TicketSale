@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>注册界面</title>
+
+		<link rel="stylesheet" type="text/css" href="css/login_register.css" />
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="layui/css/layui.css" />
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+	</head>
+
+	<body>
+		<div class="container-fluid">
+			<div id="long_header">
+				<div class="nav_longer">
+					<div class="nav_wrap w1200">
+						<div class="logo">
+							<h1>
+							<a href="#">
+							购票系统
+						</a>
+						</h1>
+						</div>
+						<div class="head_title">
+							<h2>
+							注册页面
+						</h2>
+						</div>
+						<span class="exchange">
+						已是会员
+						<a href="#" style="color: #007DDB;">马上登录</a>
+					</span>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="reg_main">
+				<label class="layui-border-box">注册</label>
+				<div class="reg_main_2 layui-col-md-offset2">
+					<form class="layui-form" action="">
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">用户名</label>
+							<div class="layui-input-block">
+								<input type="text" name="user" required lay-verify="user" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">密码</label>
+							<div class="layui-input-block">
+								<input type="password" name="password" required lay-verify="pass" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">确认密码</label>
+							<div class="layui-input-block">
+								<input type="password" name="repassword" required lay-verify="repass" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">姓名</label>
+							<div class="layui-input-block">
+								<input type="text" name="userName" required lay-verify="userName" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">证件类型</label>
+							<div class="layui-input-block">
+								<select name="interest" lay-filter="aihao">
+									<option value=""></option>
+									<option value="身份证">身份证</option>
+									<option value="护照">护照</option>
+								</select>
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">证件号码</label>
+							<div class="layui-input-block">
+								<input type="text" name="idNum" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">邮箱</label>
+							<div class="layui-input-block">
+								<input type="email" name="idNum" required lay-verify="email" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">旅客类型</label>
+							<div class="layui-input-block">
+								<select id="selectType" name="interest" lay-filter="userType" onchange="listchange();return false;">
+									<option value=""></option>
+									<option value="成人">成人</option>
+									<option value="学生">学生</option>
+								</select>
+							</div>
+						</div>
+						<div id="province" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">学校省份</label>
+							<div class="layui-input-block">
+								<input type="text" name="province" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="schoolName" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">学校名称</label>
+							<div class="layui-input-block">
+								<input type="text" name="schoolName" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="computing" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">院系</label>
+							<div class="layui-input-block">
+								<input type="text" name="computing" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="classNum" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">班级</label>
+							<div class="layui-input-block">
+								<input type="text" name="classNum" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="stuNum" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">学号</label>
+							<div class="layui-input-block">
+								<input type="text" name="stuNum" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="learnType" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">学制</label>
+							<div class="layui-input-block">
+								<input type="text" name="learnType" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="learnYear" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">入学年份</label>
+							<div class="layui-input-block">
+								<input type="text" name="learnYear" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="discountNum" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">优惠卡号</label>
+							<div class="layui-input-block">
+								<input type="text" name="discountNum" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+						<div id="discountArea" class="layui-form-item">
+							<label class="layui-form-label" style="width: 100px;">优惠区间</label>
+							<div class="layui-input-block">
+								<input type="text" name="discountArea" required lay-verify="idNum" autocomplete="off" class="layui-input">
+							</div>
+						</div>
+
+						<div class="layui-form-item layui-col-md-offset3">
+							<div class="layui-input-block">
+								<button class="layui-btn" lay-submit lay-filter="formDemo">登录</button>
+							</div>
+						</div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="layui/layui.js"></script>
+		<script>
+			//Demo
+			layui.use('form', function() {
+				var form = layui.form;
+
+				//自定义验证规则
+				form.verify({
+					user: function(value) {
+						if(value.length <= 0) {
+							return '用户名不能为空';
+						}
+					},
+					pass: [/(.+){6,12}$/, '密码必须6到12位'],
+
+				});
+
+				//监听提交
+				form.on('submit(formDemo)', function(data) {
+					layer.msg(JSON.stringify(data.field));
+					return false;
+				});
+			});
+		</script>
+
+	</body>
+
+</html>

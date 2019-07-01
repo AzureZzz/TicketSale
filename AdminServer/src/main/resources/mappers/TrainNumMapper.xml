@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.TrainNumMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.TrainNum">
+    <id column="train_no" jdbcType="VARCHAR" property="trainNo" />
+    <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+    <result column="des_station" jdbcType="VARCHAR" property="desStation" />
+    <result column="go_off" jdbcType="TIMESTAMP" property="goOff" />
+    <result column="arrive" jdbcType="TIMESTAMP" property="arrive" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    train_no, start_station, des_station, go_off, arrive
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from train_num
+    where train_no = #{trainNo,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByStation" resultMap="BaseResultMap">
+    select
+    *
+    from train_num
+    where start_station = #{station,jdbcType=VARCHAR}
+    limit #{start},#{limit}
+  </select>
+
+
+  <select id="selectCountByStation" resultType="java.lang.Integer">
+    select
+    count(*)
+    from train_num
+    where start_station = #{station,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from train_num
+    where train_no = #{trainNo,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.TrainNum">
+    insert into train_num (start_station, des_station, train_no, 
+      go_off, arrive)
+    values (#{startStation,jdbcType=VARCHAR}, #{desStation,jdbcType=VARCHAR}, #{trainNo,jdbcType=VARCHAR}, 
+      #{goOff,jdbcType=TIMESTAMP}, #{arrive,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.guet.entity.TrainNum">
+    insert into train_num
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="startStation != null">
+        start_station,
+      </if>
+      <if test="desStation != null">
+        des_station,
+      </if>
+      <if test="trainNo != null">
+        train_no,
+      </if>
+      <if test="goOff != null">
+        go_off,
+      </if>
+      <if test="arrive != null">
+        arrive,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="startStation != null">
+        #{startStation,jdbcType=VARCHAR},
+      </if>
+      <if test="desStation != null">
+        #{desStation,jdbcType=VARCHAR},
+      </if>
+      <if test="goOff != null">
+        #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arrive != null">
+        #{arrive,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.TrainNum">
+    update train_num
+    <set>
+      <if test="startStation != null">
+        start_station = #{startStation,jdbcType=VARCHAR},
+      </if>
+      <if test="desStation != null">
+        des_station = #{desStation,jdbcType=VARCHAR},
+      </if>
+      <if test="goOff != null">
+        go_off = #{goOff,jdbcType=TIMESTAMP},
+      </if>
+      <if test="arrive != null">
+        arrive = #{arrive,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where train_no = #{trainNo,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.TrainNum">
+    update train_num
+    set start_station = #{startStation,jdbcType=VARCHAR},
+      des_station = #{desStation,jdbcType=VARCHAR},
+      go_off = #{goOff,jdbcType=TIMESTAMP},
+      arrive = #{arrive,jdbcType=TIMESTAMP}
+    where train_no = #{trainNo,jdbcType=VARCHAR}
+  </update>
+</mapper>

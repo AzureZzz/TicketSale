@@ -1,0 +1,75 @@
+ * {
+            margin: 0;
+            padding: 0;
+            /*background-color: #f3f3f3;*/
+        }
+  /*导航     */
+
+
+.content{
+	position: relative;
+}
+
+     /*淡入淡出效果 */
+
+     .wheel{
+        width: 100%;
+		overflow: 	hidden;
+		 
+		
+        
+		 }
+	.wheel img{
+		width: 100%;
+		height: 580px;
+		margin: 0;
+		
+	}
+
+	@-webkit-keyframes fadeInOut {
+		0% {
+			opacity:1;
+		 }
+		25% {
+			opacity:0;
+		}
+		50% {
+			opacity: 0;    
+		}
+		75% {
+			opacity:1;
+		}
+	}
+	.anim_fade_image {
+		position:absolute;   
+		width: 100%;
+		-webkit-animation-name: fadeInOut;
+		-webkit-animation-timing-function: ease-in-out;
+		-webkit-animation-iteration-count: infinite;
+		-webkit-animation-duration: 12s;
+		-webkit-animation-direction: alternate;
+	}
+           
+/*    查询浮块*/
+.fadein_Sear{
+
+	position: absolute;
+	left: 10%;
+	top: 30px;
+
+
+}
+
+.fadein_Sear_item{
+    padding: 61px 72px;
+	background-color: white;
+}
+
+ .hotRute{
+	 width: 100%;
+	 height: 200px;
+	 margin: 100px auto;
+ }
+ .hotRute {
+	 padding: 20px;
+ }

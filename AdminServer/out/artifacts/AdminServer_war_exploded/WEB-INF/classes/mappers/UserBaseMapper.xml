@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.UserBaseMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.UserBase">
+    <id column="u_id" jdbcType="BIGINT" property="uId" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="real_name" jdbcType="VARCHAR" property="realName" />
+    <result column="id_card_type" jdbcType="VARCHAR" property="idCardType" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="phone_number" jdbcType="VARCHAR" property="phoneNumber" />
+    <result column="l_id" jdbcType="BIGINT" property="lId" />
+    <result column="user_type" jdbcType="CHAR" property="userType" />
+    <result column="balance" jdbcType="REAL" property="balance" />
+    <result column="pay_pass" jdbcType="VARCHAR" property="payPass" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    u_id, username, password, real_name, id_card_type, id_card, email, phone_number, 
+    l_id, user_type
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_base
+    where u_id = #{uId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectAllUserBase" resultMap="BaseResultMap">
+    select
+    *
+    from user_base
+    limit #{start},#{limit}
+  </select>
+
+  <select id="selectUserBaseKey" resultMap="BaseResultMap">
+    select
+    *
+    from user_base
+    where username=#{username,jdbcType=VARCHAR}
+    limit #{start},#{limit}
+  </select>
+
+  <select id="selectByUsername" resultMap="BaseResultMap">
+    select
+    *
+    from user_base
+    WHERE username = #{username,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllCount" resultType="java.lang.Integer">
+    select
+    count(*)
+    from user_base
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_base
+    where u_id = #{uId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.UserBase">
+    <selectKey keyProperty="uId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_base (username, password, real_name,
+    id_card_type, id_card, email,
+    phone_number, l_id, user_type
+    )
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+    #{idCardType,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},
+    #{phoneNumber,jdbcType=VARCHAR}, #{lId,jdbcType=BIGINT}, #{userType,jdbcType=CHAR}
+    )
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.guet.entity.UserBase">
+    <selectKey keyProperty="uId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_base
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="realName != null">
+        real_name,
+      </if>
+      <if test="idCardType != null">
+        id_card_type,
+      </if>
+      <if test="idCard != null">
+        id_card,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phoneNumber != null">
+        phone_number,
+      </if>
+      <if test="lId != null">
+        l_id,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardType != null">
+        #{idCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lId != null">
+        #{lId,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=CHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.UserBase">
+    update user_base
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null">
+        real_name = #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="idCardType != null">
+        id_card_type = #{idCardType,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null">
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNumber != null">
+        phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="lId != null">
+        l_id = #{lId,jdbcType=BIGINT},
+      </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=CHAR},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=REAL},
+      </if>
+      <if test="payPass != null">
+        pay_pass = #{payPass,jdbcType=CHAR},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.UserBase">
+    update user_base
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      real_name = #{realName,jdbcType=VARCHAR},
+      id_card_type = #{idCardType,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone_number = #{phoneNumber,jdbcType=VARCHAR},
+      l_id = #{lId,jdbcType=BIGINT},
+      user_type = #{userType,jdbcType=CHAR},
+      pay_pass = #{payPass,jdbcType=CHAR},
+      balance = #{balance,jdbcType=REAL}
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+  
+</mapper>

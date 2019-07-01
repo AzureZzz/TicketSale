@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.TrainSeatMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.TrainSeat">
+    <id column="ts_id" jdbcType="BIGINT" property="tsId" />
+    <result column="tt_id" jdbcType="BIGINT" property="ttId" />
+    <result column="seat_type" jdbcType="CHAR" property="seatType" />
+    <result column="seat_no" jdbcType="VARCHAR" property="seatNo" />
+    <result column="seat_state" jdbcType="BIT" property="seatState" />
+    <result column="piece" jdbcType="REAL" property="piece" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ts_id, tt_id, seat_type, seat_no, seat_state, piece
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from train_seat
+    where ts_id = #{tsId,jdbcType=BIGINT}
+  </select>
+
+  <select id="selectByIdandType" resultMap="BaseResultMap">
+    select
+    *
+    from train_seat
+    where tt_id = #{ttId,jdbcType=BIGINT}
+    and seat_type=#{seatType,jdbcType=VARCHAR}
+    and seat_state = false
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from train_seat
+    where ts_id = #{tsId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.TrainSeat">
+    <selectKey keyProperty="tsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into train_seat (tt_id, seat_type, seat_no, 
+      seat_state, piece)
+    values (#{ttId,jdbcType=BIGINT}, #{seatType,jdbcType=CHAR}, #{seatNo,jdbcType=VARCHAR}, 
+      #{seatState,jdbcType=BIT}, #{piece,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.TrainSeat">
+    <selectKey keyProperty="tsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into train_seat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ttId != null">
+        tt_id,
+      </if>
+      <if test="seatType != null">
+        seat_type,
+      </if>
+      <if test="seatNo != null">
+        seat_no,
+      </if>
+      <if test="seatState != null">
+        seat_state,
+      </if>
+      <if test="piece != null">
+        piece,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ttId != null">
+        #{ttId,jdbcType=BIGINT},
+      </if>
+      <if test="seatType != null">
+        #{seatType,jdbcType=CHAR},
+      </if>
+      <if test="seatNo != null">
+        #{seatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="seatState != null">
+        #{seatState,jdbcType=BIT},
+      </if>
+      <if test="piece != null">
+        #{piece,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.TrainSeat">
+    update train_seat
+    <set>
+      <if test="ttId != null">
+        tt_id = #{ttId,jdbcType=BIGINT},
+      </if>
+      <if test="seatType != null">
+        seat_type = #{seatType,jdbcType=CHAR},
+      </if>
+      <if test="seatNo != null">
+        seat_no = #{seatNo,jdbcType=VARCHAR},
+      </if>
+      <if test="seatState != null">
+        seat_state = #{seatState,jdbcType=BIT},
+      </if>
+      <if test="piece != null">
+        piece = #{piece,jdbcType=REAL},
+      </if>
+    </set>
+    where ts_id = #{tsId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.TrainSeat">
+    update train_seat
+    set tt_id = #{ttId,jdbcType=BIGINT},
+      seat_type = #{seatType,jdbcType=CHAR},
+      seat_no = #{seatNo,jdbcType=VARCHAR},
+      seat_state = #{seatState,jdbcType=BIT},
+      piece = #{piece,jdbcType=REAL}
+    where ts_id = #{tsId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.AgencyMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.Agency">
+    <id column="a_id" jdbcType="BIGINT" property="aId" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="town" jdbcType="VARCHAR" property="town" />
+    <result column="county" jdbcType="VARCHAR" property="county" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="sale_time" jdbcType="VARCHAR" property="saleTime" />
+    <result column="window_num" jdbcType="SMALLINT" property="windowNum" />
+    <result column="contact_num" jdbcType="VARCHAR" property="contactNum" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    a_id, province, town, county, name, adress, sale_time, window_num, contact_num
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from agency
+    where a_id = #{aId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from agency
+    where a_id = #{aId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.Agency">
+    <selectKey keyProperty="aId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into agency (province, town, county, 
+      name, adress, sale_time, 
+      window_num, contact_num)
+    values (#{province,jdbcType=VARCHAR}, #{town,jdbcType=VARCHAR}, #{county,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, #{saleTime,jdbcType=VARCHAR}, 
+      #{windowNum,jdbcType=SMALLINT}, #{contactNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.Agency">
+    <selectKey keyProperty="aId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into agency
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="province != null">
+        province,
+      </if>
+      <if test="town != null">
+        town,
+      </if>
+      <if test="county != null">
+        county,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="saleTime != null">
+        sale_time,
+      </if>
+      <if test="windowNum != null">
+        window_num,
+      </if>
+      <if test="contactNum != null">
+        contact_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null">
+        #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTime != null">
+        #{saleTime,jdbcType=VARCHAR},
+      </if>
+      <if test="windowNum != null">
+        #{windowNum,jdbcType=SMALLINT},
+      </if>
+      <if test="contactNum != null">
+        #{contactNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.Agency">
+    update agency
+    <set>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="town != null">
+        town = #{town,jdbcType=VARCHAR},
+      </if>
+      <if test="county != null">
+        county = #{county,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="saleTime != null">
+        sale_time = #{saleTime,jdbcType=VARCHAR},
+      </if>
+      <if test="windowNum != null">
+        window_num = #{windowNum,jdbcType=SMALLINT},
+      </if>
+      <if test="contactNum != null">
+        contact_num = #{contactNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where a_id = #{aId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.Agency">
+    update agency
+    set province = #{province,jdbcType=VARCHAR},
+      town = #{town,jdbcType=VARCHAR},
+      county = #{county,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      sale_time = #{saleTime,jdbcType=VARCHAR},
+      window_num = #{windowNum,jdbcType=SMALLINT},
+      contact_num = #{contactNum,jdbcType=VARCHAR}
+    where a_id = #{aId,jdbcType=BIGINT}
+  </update>
+</mapper>

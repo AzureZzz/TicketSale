@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.BusSeatMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.BusSeat">
+    <id column="bs_id" jdbcType="BIGINT" property="bsId" />
+    <result column="seat_no" jdbcType="SMALLINT" property="seatNo" />
+    <result column="seat_state" jdbcType="BIT" property="seatState" />
+    <association property="busNum" column="b_id" javaType="com.guet.entity.BusNum">
+      <id column="b_id" jdbcType="BIGINT" property="bId" />
+      <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+      <result column="des_station" jdbcType="VARCHAR" property="desStation" />
+      <result column="start_city" jdbcType="VARCHAR" property="startCity" />
+      <result column="arrive_city" jdbcType="VARCHAR" property="arriveCity" />
+      <result column="bus_type" jdbcType="VARCHAR" property="busType" />
+      <result column="go_off" jdbcType="TIMESTAMP" property="goOff" />
+      <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime" />
+      <result column="piece" jdbcType="REAL" property="piece" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bs_id, b_id, seat_no, seat_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    *
+    from bus_seat bs join bus_num bn on bs.b_id = bn.b_id
+    where bs.bs_id = #{bsId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_seat
+    where bs_id = #{bsId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.BusSeat">
+    <selectKey keyProperty="bsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_seat (b_id, seat_no, seat_state
+      )
+    values (#{busNum.bId,jdbcType=BIGINT}, #{seatNo,jdbcType=SMALLINT}, #{seatState,jdbcType=BIT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.BusSeat">
+    <selectKey keyProperty="bsId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_seat
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="busNum != null">
+        b_id,
+      </if>
+      <if test="seatNo != null">
+        seat_no,
+      </if>
+      <if test="seatState != null">
+        seat_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="busNum != null">
+        #{busNum.bId,jdbcType=BIGINT},
+      </if>
+      <if test="seatNo != null">
+        #{seatNo,jdbcType=SMALLINT},
+      </if>
+      <if test="seatState != null">
+        #{seatState,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateState">
+    update bus_seat
+    set seat_state = #{seatState,jdbcType=BIT}
+    where bs_id = #{bsId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.BusSeat">
+    update bus_seat
+    <set>
+      <if test="busNum != null">
+        b_id = #{busNum.bId,jdbcType=BIGINT},
+      </if>
+      <if test="seatNo != null">
+        seat_no = #{seatNo,jdbcType=SMALLINT},
+      </if>
+      <if test="seatState != null">
+        seat_state = #{seatState,jdbcType=BIT},
+      </if>
+    </set>
+    where bs_id = #{bsId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.BusSeat">
+    update bus_seat
+    set b_id = #{busNum.bId,jdbcType=BIGINT},
+      seat_no = #{seatNo,jdbcType=SMALLINT},
+      seat_state = #{seatState,jdbcType=BIT}
+    where bs_id = #{bsId,jdbcType=BIGINT}
+  </update>
+</mapper>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.UserInfoMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.UserInfo">
+    <id column="u_id" jdbcType="BIGINT" property="uId" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="postcode" jdbcType="VARCHAR" property="postcode" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    u_id, telephone, adress, postcode, birthday
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where u_id = #{uId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from user_info
+    where u_id = #{uId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.UserInfo">
+    insert into user_info (u_id,telephone, adress, postcode,
+      birthday)
+    values ( #{uId,jdbcType=BIGINT},#{telephone,jdbcType=VARCHAR}, #{adress,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR},
+      #{birthday,jdbcType=DATE})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.guet.entity.UserInfo">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="telephone != null">
+        telephone,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="telephone != null">
+        #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.UserInfo">
+    update user_info
+    <set>
+      <if test="telephone != null">
+        telephone = #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.UserInfo">
+    update user_info
+    set telephone = #{telephone,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE}
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+</mapper>

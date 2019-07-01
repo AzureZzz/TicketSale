@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.TrainBillMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.TrainBill">
+    <id column="tb_id" jdbcType="BIGINT" property="tbId" />
+    <result column="u_id" jdbcType="BIGINT" property="uId" />
+    <result column="ts_id" jdbcType="BIGINT" property="tsId" />
+    <result column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="t_no" jdbcType="VARCHAR" property="tNo" />
+    <result column="type" jdbcType="CHAR" property="type" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <result column="bill_state" jdbcType="BIT" property="billState" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tb_id, u_id, ts_id, p_id, t_no, type, buy_time, bill_state
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from train_bill
+    where tb_id = #{tbId,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from train_bill
+    where tb_id = #{tbId,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.guet.entity.TrainBill">
+    <selectKey keyProperty="tbId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into train_bill (u_id, ts_id, p_id, 
+      t_no, type, buy_time, 
+      bill_state)
+    values (#{uId,jdbcType=BIGINT}, #{tsId,jdbcType=BIGINT}, #{pId,jdbcType=BIGINT}, 
+      #{tNo,jdbcType=VARCHAR}, #{type,jdbcType=CHAR}, #{buyTime,jdbcType=TIMESTAMP}, 
+      #{billState,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.TrainBill">
+    <selectKey keyProperty="tbId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into train_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="tsId != null">
+        ts_id,
+      </if>
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="tNo != null">
+        t_no,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="buyTime != null">
+        buy_time,
+      </if>
+      <if test="billState != null">
+        bill_state,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="tsId != null">
+        #{tsId,jdbcType=BIGINT},
+      </if>
+      <if test="pId != null">
+        #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="tNo != null">
+        #{tNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=CHAR},
+      </if>
+      <if test="buyTime != null">
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billState != null">
+        #{billState,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.TrainBill">
+    update train_bill
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="tsId != null">
+        ts_id = #{tsId,jdbcType=BIGINT},
+      </if>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="tNo != null">
+        t_no = #{tNo,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=CHAR},
+      </if>
+      <if test="buyTime != null">
+        buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="billState != null">
+        bill_state = #{billState,jdbcType=BIT},
+      </if>
+    </set>
+    where tb_id = #{tbId,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.TrainBill">
+    update train_bill
+    set u_id = #{uId,jdbcType=BIGINT},
+      ts_id = #{tsId,jdbcType=BIGINT},
+      p_id = #{pId,jdbcType=BIGINT},
+      t_no = #{tNo,jdbcType=VARCHAR},
+      type = #{type,jdbcType=CHAR},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      bill_state = #{billState,jdbcType=BIT}
+    where tb_id = #{tbId,jdbcType=BIGINT}
+  </update>
+</mapper>

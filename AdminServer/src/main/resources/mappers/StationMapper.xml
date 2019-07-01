@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.StationMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.Station">
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="contact_phone" jdbcType="VARCHAR" property="contactPhone" />
+    <result column="adress" jdbcType="VARCHAR" property="adress" />
+    <result column="station_type" jdbcType="BIT" property="stationType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    name, city, contact_phone, adress, station_type
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from station
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+
+  <select id="selectByInfoSelective" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from station
+    and city = #{city,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from station
+    where name = #{name,jdbcType=VARCHAR}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.Station">
+    insert into station (name, city,
+       contact_phone, adress,
+      station_type)
+    values (#{name,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR},#{contactPhone,jdbcType=VARCHAR},
+     #{adress,jdbcType=VARCHAR},
+      #{stationType,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.guet.entity.Station">
+    insert into station
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="contactPhone != null">
+        contact_phone,
+      </if>
+      <if test="adress != null">
+        adress,
+      </if>
+      <if test="stationType != null">
+        station_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="stationType != null">
+        #{stationType,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.Station">
+    update station
+    <set>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="contactPhone != null">
+        contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      </if>
+      <if test="adress != null">
+        adress = #{adress,jdbcType=VARCHAR},
+      </if>
+      <if test="stationType != null">
+        station_type = #{stationType,jdbcType=BIT},
+      </if>
+    </set>
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.Station">
+    update station
+    set
+      city = #{city,jdbcType=VARCHAR},
+      contact_phone = #{contactPhone,jdbcType=VARCHAR},
+      adress = #{adress,jdbcType=VARCHAR},
+      station_type = #{stationType,jdbcType=BIT}
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>

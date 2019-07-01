@@ -1,0 +1,78 @@
+
+
+
+.traffic_information{
+    background-color: #fff;
+    border: 2px solid #64aee5;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.traffic_inf_title dl dd{
+    line-height: 40px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #64aee5;
+
+}
+.traffic_inf_left{
+    padding-left: 10px;
+}
+
+.traffic_inf_jia{
+    padding: 14px 10px 0 10px;
+}
+.traffic_inf_xial{
+    margin: 15px 0 0 5px;
+    color: #64aee5;
+    font-size: 14px;
+    width: 104px;
+    height: 18px;
+
+}
+
+.search-box .col-md-10{
+    background-color: #fff;
+    margin-top: 25px;
+}
+.guide{
+    background-color:#fff;
+    margin: 15px 0 0 1px;
+    width: 16%;
+}
+
+.guide dd{
+    font-size: 12px;
+    letter-spacing: 1px;
+}
+
+
+.base_shi{
+    background-color: #2aabd2;
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+}
+
+
+.base_dao{
+    background-color: #2aabd2;
+    width: 34px;
+    height: 34px;
+    border-radius: 5px;
+    color: #fff;
+    font-size: 15px;
+
+}
+
+#title{
+    width:225px;
+    overflow:hidden;
+    white-space:nowrap;
+    text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+}
+
+

@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.StuAuthMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.StuAuth">
+    <id column="u_id" jdbcType="BIGINT" property="uId" />
+    <result column="p_id" jdbcType="BIGINT" property="pId" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="school" jdbcType="VARCHAR" property="school" />
+    <result column="department" jdbcType="VARCHAR" property="department" />
+    <result column="stu_class" jdbcType="VARCHAR" property="stuClass" />
+    <result column="stu_no" jdbcType="VARCHAR" property="stuNo" />
+    <result column="stu_len" jdbcType="SMALLINT" property="stuLen" />
+    <result column="join_year" jdbcType="DATE" property="joinYear" />
+    <result column="dis_num" jdbcType="VARCHAR" property="disNum" />
+    <result column="dis_ranger" jdbcType="VARCHAR" property="disRanger" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    u_id, p_id, province, school, department, stu_class, stu_no, stu_len, join_year, 
+    dis_num, dis_ranger
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from stu_auth
+    where u_id = #{uId,jdbcType=BIGINT}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from stu_auth
+    where u_id = #{uId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.StuAuth">
+    insert into stu_auth (u_id,p_id, province, school,
+      department, stu_class, stu_no, 
+      stu_len, join_year, dis_num, 
+      dis_ranger)
+    values (#{uId,jdbcType=BIGINT},#{pId,jdbcType=BIGINT}, #{province,jdbcType=VARCHAR}, #{school,jdbcType=VARCHAR},
+      #{department,jdbcType=VARCHAR}, #{stuClass,jdbcType=VARCHAR}, #{stuNo,jdbcType=VARCHAR}, 
+      #{stuLen,jdbcType=SMALLINT}, #{joinYear,jdbcType=DATE}, #{disNum,jdbcType=VARCHAR}, 
+      #{disRanger,jdbcType=VARCHAR})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.guet.entity.StuAuth">
+    insert into stu_auth
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      u_id,
+      <if test="pId != null">
+        p_id,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="school != null">
+        school,
+      </if>
+      <if test="department != null">
+        department,
+      </if>
+      <if test="stuClass != null">
+        stu_class,
+      </if>
+      <if test="stuNo != null">
+        stu_no,
+      </if>
+      <if test="stuLen != null">
+        stu_len,
+      </if>
+      <if test="joinYear != null">
+        join_year,
+      </if>
+      <if test="disNum != null">
+        dis_num,
+      </if>
+      <if test="disRanger != null">
+        dis_ranger,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      #{uId,,jdbcType=BIGINT},
+      <if test="pId != null">
+        #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="stuClass != null">
+        #{stuClass,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNo != null">
+        #{stuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stuLen != null">
+        #{stuLen,jdbcType=SMALLINT},
+      </if>
+      <if test="joinYear != null">
+        #{joinYear,jdbcType=DATE},
+      </if>
+      <if test="disNum != null">
+        #{disNum,jdbcType=VARCHAR},
+      </if>
+      <if test="disRanger != null">
+        #{disRanger,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.StuAuth">
+    update stu_auth
+    <set>
+      <if test="pId != null">
+        p_id = #{pId,jdbcType=BIGINT},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="school != null">
+        school = #{school,jdbcType=VARCHAR},
+      </if>
+      <if test="department != null">
+        department = #{department,jdbcType=VARCHAR},
+      </if>
+      <if test="stuClass != null">
+        stu_class = #{stuClass,jdbcType=VARCHAR},
+      </if>
+      <if test="stuNo != null">
+        stu_no = #{stuNo,jdbcType=VARCHAR},
+      </if>
+      <if test="stuLen != null">
+        stu_len = #{stuLen,jdbcType=SMALLINT},
+      </if>
+      <if test="joinYear != null">
+        join_year = #{joinYear,jdbcType=DATE},
+      </if>
+      <if test="disNum != null">
+        dis_num = #{disNum,jdbcType=VARCHAR},
+      </if>
+      <if test="disRanger != null">
+        dis_ranger = #{disRanger,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.StuAuth">
+    update stu_auth
+    set p_id = #{pId,jdbcType=BIGINT},
+      province = #{province,jdbcType=VARCHAR},
+      school = #{school,jdbcType=VARCHAR},
+      department = #{department,jdbcType=VARCHAR},
+      stu_class = #{stuClass,jdbcType=VARCHAR},
+      stu_no = #{stuNo,jdbcType=VARCHAR},
+      stu_len = #{stuLen,jdbcType=SMALLINT},
+      join_year = #{joinYear,jdbcType=DATE},
+      dis_num = #{disNum,jdbcType=VARCHAR},
+      dis_ranger = #{disRanger,jdbcType=VARCHAR}
+    where u_id = #{uId,jdbcType=BIGINT}
+  </update>
+
+</mapper>

@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.guet.dao.BusBillMapper">
+  <resultMap id="BaseResultMap" type="com.guet.entity.BusBill">
+    <id column="bb_id" jdbcType="BIGINT" property="bbId" />
+    <result column="u_id" jdbcType="BIGINT" property="uId" />
+    <result column="piece" jdbcType="REAL" property="piece" />
+    <result column="bill_state" jdbcType="BIT" property="billState" />
+    <result column="bill_type" jdbcType="CHAR" property="billType" />
+    <result column="bill_no" jdbcType="VARCHAR" property="billNo" />
+    <result column="buy_time" jdbcType="TIMESTAMP" property="buyTime" />
+    <association property="busSeat" column="bs_id" javaType="com.guet.entity.BusSeat">
+      <id column="bs_id" jdbcType="BIGINT" property="bsId" />
+      <result column="seat_no" jdbcType="SMALLINT" property="seatNo" />
+      <result column="seat_state" jdbcType="BIT" property="seatState" />
+      <association property="busNum" column="b_id" javaType="com.guet.entity.BusNum">
+        <id column="b_id" jdbcType="BIGINT" property="bId" />
+        <result column="start_station" jdbcType="VARCHAR" property="startStation" />
+        <result column="des_station" jdbcType="VARCHAR" property="desStation" />
+        <result column="start_city" jdbcType="VARCHAR" property="startCity" />
+        <result column="arrive_city" jdbcType="VARCHAR" property="arriveCity" />
+        <result column="bus_type" jdbcType="VARCHAR" property="busType" />
+        <result column="go_off" jdbcType="TIMESTAMP" property="goOff" />
+        <result column="arrive_time" jdbcType="TIMESTAMP" property="arriveTime" />
+        <result column="piece" jdbcType="REAL" property="piece" />
+        <result column="num_no" jdbcType="VARCHAR" property="numNo"/>
+      </association>
+    </association>
+    <association property="passenger" column="p_id" javaType="com.guet.entity.Passenger">
+      <id column="p_id" jdbcType="BIGINT" property="pId" />
+      <result column="u_id" jdbcType="BIGINT" property="uId" />
+      <result column="real_name" jdbcType="VARCHAR" property="realName" />
+      <result column="country" jdbcType="VARCHAR" property="country" />
+      <result column="id_card_type" jdbcType="VARCHAR" property="idCardType" />
+      <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+      <result column="p_type" jdbcType="CHAR" property="pType" />
+      <result column="state" jdbcType="BIT" property="state" />
+    </association>
+  </resultMap>
+  <sql id="Base_Column_List">
+    bb_id, u_id, piece, bill_state, bill_type, bill_no, buy_time
+  </sql>
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    *
+    from bus_bill bb join bus_seat bs on bb.bs_id=bs.bs_id join bus_num bn on bs.b_id=bn.b_id join passenger p
+    on p.p_id = bb.p_id
+    where bb_id = #{bbId,jdbcType=BIGINT}
+    and
+  </select>
+
+  <select id="selectByUidPay" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    *
+    from bus_bill bb join bus_seat bs on bb.bs_id=bs.bs_id join bus_num bn on bs.b_id=bn.b_id join passenger p
+    on p.p_id = bb.p_id
+    where bb.u_id = #{uId,jdbcType=BIGINT}
+    and bill_state = true
+  </select>
+
+  <select id="selectByUidUnPay" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select
+    *
+    from bus_bill bb join bus_seat bs on bb.bs_id=bs.bs_id join bus_num bn on bs.b_id=bn.b_id join passenger p
+    on p.p_id = bb.p_id
+    where bb.u_id = #{uId,jdbcType=BIGINT}
+    and bill_state = false
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bus_bill
+    where bb_id = #{bbId,jdbcType=BIGINT}
+  </delete>
+
+  <delete id="deleteByUid" parameterType="java.lang.Long">
+    delete from bus_bill
+    where u_id = #{uId,jdbcType=BIGINT}
+  </delete>
+
+  <insert id="insert" parameterType="com.guet.entity.BusBill">
+    <selectKey keyProperty="bbId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_bill (u_id, p_id, bs_id, 
+      piece, bill_state, bill_type, bill_no, 
+      buy_time)
+    values (#{uId,jdbcType=BIGINT}, #{passenger.pId,jdbcType=BIGINT}, #{busSeat.bsId,jdbcType=BIGINT},
+      #{piece,jdbcType=REAL}, #{billState,jdbcType=BIT}, #{billType,jdbcType=CHAR}, #{billNo,jdbcType=VARCHAR}, 
+      #{buyTime,jdbcType=TIMESTAMP})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.guet.entity.BusBill">
+    <selectKey keyProperty="bbId" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bus_bill
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="passenger != null">
+        p_id,
+      </if>
+      <if test="busSeat != null">
+        bs_id,
+      </if>
+      <if test="piece != null">
+        piece,
+      </if>
+      <if test="billState != null">
+        bill_state,
+      </if>
+      <if test="billType != null">
+        bill_type,
+      </if>
+      <if test="billNo != null">
+        bill_no,
+      </if>
+      <if test="buyTime != null">
+        buy_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="uId != null">
+        #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="passenger != null">
+        #{passenger.pId,jdbcType=BIGINT},
+      </if>
+      <if test="busSeat != null">
+        #{busSeat.bsId,jdbcType=BIGINT},
+      </if>
+      <if test="piece != null">
+        #{piece,jdbcType=REAL},
+      </if>
+      <if test="billState != null">
+        #{billState,jdbcType=BIT},
+      </if>
+      <if test="billType != null">
+        #{billType,jdbcType=CHAR},
+      </if>
+      <if test="billNo != null">
+        #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null">
+        #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+
+  <update id="updateByPrimaryKeySelective" parameterType="com.guet.entity.BusBill">
+    update bus_bill
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=BIGINT},
+      </if>
+      <if test="passenger != null">
+        p_id = #{passenger.pId,jdbcType=BIGINT},
+      </if>
+      <if test="busSeat != null">
+        bs_id = #{busSeat.bsId,jdbcType=BIGINT},
+      </if>
+      <if test="piece != null">
+        piece = #{piece,jdbcType=REAL},
+      </if>
+      <if test="billState != null">
+        bill_state = #{billState,jdbcType=BIT},
+      </if>
+      <if test="billType != null">
+        bill_type = #{billType,jdbcType=CHAR},
+      </if>
+      <if test="billNo != null">
+        bill_no = #{billNo,jdbcType=VARCHAR},
+      </if>
+      <if test="buyTime != null">
+        buy_time = #{buyTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where bb_id = #{bbId,jdbcType=BIGINT}
+  </update>
+
+  <update id="updateByPrimaryKey" parameterType="com.guet.entity.BusBill">
+    update bus_bill
+    set u_id = #{uId,jdbcType=BIGINT},
+      p_id = #{passager.pId,jdbcType=BIGINT},
+      bs_id = #{busSeat.bsId,jdbcType=BIGINT},
+      piece = #{piece,jdbcType=REAL},
+      bill_state = #{billState,jdbcType=BIT},
+      bill_type = #{billType,jdbcType=CHAR},
+      bill_no = #{billNo,jdbcType=VARCHAR},
+      buy_time = #{buyTime,jdbcType=TIMESTAMP}
+    where bb_id = #{bbId,jdbcType=BIGINT}
+  </update>
+
+</mapper>
